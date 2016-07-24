@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+
+
+{% block head_title %}
+Hanasayo | {{ block.super }}
+{% endblock %}
+
+
+
+
+<style>
+{% block style %}
+.navbar-static-top{
+    margin-bottom:0px !important;
+    
+}
+
+.jumbotron{
+    background-color:#5e8452;
+    color:#FFF;
+}
+{% endblock %}
+</style>
+
+
+
+
+{% block jumbotron %}
+
+{% if request.user.is_authenticated %}
+<h1 class='lead text-align-center'></h1>
+
+
+{% else %}
+<div class="jumbotron">
+<div class="container">
+     <div class = "row">
+              <div class='col-sm-6'>
+              <h1>Come Join The Projection Community!</h1>
+              <p>Collaborate with people all around the world through the forum and turn your ideas into reality.
+                  Support various endeavours and contribute to your favourite projects!  </p>
+
+              <p>
+              <a class="btn btn-lg btn-primary" href="{% url 'registration_register' %}" role="button">Join Us &raquo;</a>
+              </p>
+              </div>
+              <div class='col-sm-6 '>
+                   <iframe width="560" height="315" src="https://www.youtube.com/embed/AuzGW3AIpd0" frameborder="0" allowfullscreen></iframe>
+              </div>
+              </div>
+     </div>
+
+</div>
+{% endif %}
+{% endblock %}
+
+
+
+
+
+
+
+{% block content %}
+{% if request.user.is_authenticated %}
+
+{% include 'inside.html'%}
+{# {{ queryset }} #}
+{% else %}
+<!-- <div class="row">
+  <div class="col-xs-3 pull-right">
+             <p class='lead text-align-center'>{{ title }}</p>
+
+             <form method ='POST' action=''>{% csrf_token %}
+             {{form|crispy }}
+             <input class='btn btn-primary' type = 'submit' value='Sign Up' />
+             </form>
+  </div>
+ -->
+  <div class = 'col-sm-2'>
+  <p class='lead text-align-center'> Share an idea!
+  <br/>
+<span class="fa-stack fa-lg fa-4x">
+  <i class="fa fa-lightbulb-o fa-stack-4x" aria-hidden="true"></i>
+</span></p>
+  </div>
+
+  <div class = 'col-sm-1'>
+    <br/>
+    <br/>
+    <br/>
+    <span class="fa-stack fa-lg fa-4x">
+    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </span></p>
+  </div>
+
+  <div class = 'col-sm-2'>
+  <p class='lead text-align-center'>Like an idea! 
+  <br/>
+<span class="fa-stack fa-lg fa-4x">
+  <i class="fa fa-thumbs-o-up fa-stack-4x" aria-hidden="true"></i>
+</span>
+  </p>
+  
+  </div>
+<div class = 'col-sm-1'>
+    <br/>
+    <br/>
+    <br/>
+    <span class="fa-stack fa-lg fa-4x">
+    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </span></p>
+  </div>
+
+ <div class = 'col-sm-2'>
+  <p class='lead text-align-center'>Give feedback! 
+  <br/>
+<span class="fa-stack fa-lg fa-4x">
+  <i class="fa fa-comment-o fa-stack-4x" aria-hidden="true"></i>
+</span>
+  </p>
+  
+  </div>
+<div class = 'col-sm-1'>
+    <br/>
+    <br/>
+    <br/>
+    <span class="fa-stack fa-lg fa-4x">
+    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </span></p>
+  </div>
+  <div class = 'col-sm-3'>
+  <p class='lead text-align-center'> Watch ideas unfold!
+  <br/>
+<span class="fa-stack fa-lg fa-4x">
+<i class="fa fa-star-o" aria-hidden="true"></i>
+</span></p>
+  </div>
+</div>
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block jumbotron %}
+_
+{% endblock %}
+
+{% block content %}
+
+<h1>Access the ideas you are involved in at the moment</h1>
+ 
+<div>
+    {%for item in list%}
+    <h3>{{ item.name }}</h3>
+    
+      <a href="/posts/{{ item.slug }}/hiddenforum/" type="button" class="btn btn-primary btn-block">Go</a>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

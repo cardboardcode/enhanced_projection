@@ -1,0 +1,32 @@
+{% load staticfiles %}
+
+body {
+  min-height: 2000px;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+  background-color: #a9cfa9;
+  border-color:#c2ffbe;
+}
+
+.navbar-default .navbar-brand{
+	color:#FFF;
+}
+
+.navbar-default .navbar-brand:hover{
+	color:#777;
+}
+
+.navbar-default .navbar-nav>li>a:hover{
+	color:red;
+}
+
+.navbar-default .navbar-toggle{
+	border-color: transparent !important;
+}
+
+.navbar-toggle{
+	background-color: #c2ffbe !important;
+	
+}

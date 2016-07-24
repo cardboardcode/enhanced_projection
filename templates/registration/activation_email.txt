@@ -1,0 +1,15 @@
+{% load i18n %}
+{% trans "Activate account at" %} {{ site.name }}:
+
+Hello there!
+
+Thank you for signing up with Projection. It is time for your idea to take flight.
+
+Click the link below to activate your account.
+
+http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+
+
+{% blocktrans %}The above link is valid for {{ expiration_days }} days.{% endblocktrans %}
+
+-Team CFE

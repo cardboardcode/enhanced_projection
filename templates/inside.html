@@ -1,0 +1,59 @@
+
+{% load staticfiles %}
+
+<style>
+.wrapper {width:58.536585%; /*960/1640 = .58536585*/ margin:0 auto;}
+.resize {width:100%; height:auto;}
+</style> 
+
+
+<div class="row">
+  <div class="col-xs-4 col-sm-4">
+  		<a href="{% url 'closedgenres' %}" style="font-family:Impact; color:white;">
+		<div class="panel panel-primary" style="background-color: #646469;">
+
+		  <div class=" lead panel-body wrapper" style='background-color: #646469 margin-bottom=0px;' >
+
+		    
+		    <p class="lead text-align-center">
+		    Closed Projects
+		    </p>
+		    
+		  </div>
+		 
+		  <img class="resize" src="{% static 'img/closedprojects2.jpg'%}" style="height:520px;"/>
+		  
+		</div>
+		</a>
+  </div>
+  <div class="col-xs-4 col-sm-4">
+  	<a href="{% url 'openedgenres' %}" style="font-family:Impact; color:white;">
+  	<div class="panel panel-danger" style="background-color: #3a9c53;">
+		  <div class=" lead panel-body" style='background-color: #3a9c53 margin-bottom=0px;'>
+		  
+		  <p class="lead text text-align-center">
+		    Opened Projects
+		    </p>
+		    
+		  </div>
+		  <img class="resize" src="{% static 'img/openedprojects.jpg'%}" style="height:500px;"/>
+		</div>
+		</a>
+  </div>
+  <div class="col-xs-4 col-sm-4">
+  <a href="/involvedprojects/" style="font-family:Impact; color:white;">
+  	<div class="panel panel-success" style='background-color:#8daf88'>
+		  <div class=" lead panel-body" style='background-color: #8daf88 margin-bottom=0px;'>
+		  <font style="font-family:Impact; color:white;">
+		  <p class="lead text-align-center">
+		    Involved Projects
+		    </p>
+		    </font>
+		  </div>
+		  <img class="resize" src="{% static 'img/involvedprojects.jpg'%}" style="height:500px;"/>
+		</div>
+		</a>
+  </div>
+</div>
+
+

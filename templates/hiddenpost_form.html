@@ -1,0 +1,18 @@
+{% extends "base2.html" %}
+{% load crispy_forms_tags %}
+
+{% block head_extra %}
+{{ form.media }}
+{% endblock head_extra %}
+
+{% block content %}
+<div class ='col-sm-8 col-sm-offset-2'> 
+<h1>Hidden Form</h1>
+
+<form method = 'POST' action = '' enctype='multipart/form-data'> {% csrf_token %}
+{{ form | crispy }}
+<p>Please copy your title into the hidden forum tab "{{ slugtest }}" above</p>
+<input type = 'submit' class = 'btn btn-default' value = 'Create Post' />
+</form>
+</div>
+{% endblock content %}
