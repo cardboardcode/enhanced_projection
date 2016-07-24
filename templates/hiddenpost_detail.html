@@ -6,27 +6,25 @@
 {% endblock head_title %}
 
 {% block content %}
-<div class ='col-sm-8 col-sm-offset-2'>
-	{% if instance.image %}
+
+
+<div class ='col-sm-7'>
+<div class="panel panel-info">
+{% if instance.image %}
 	<img src='{{ instance.image.url }}' class='img-responsive' />
-	{% endif %}
-<h1> {{ title }} <small>{{ instance.timestamp }}</small></h1>
-<p>Author: {{ instance.user }}</p>
-
-
-<div class="col-md-2">
-	
+{% endif %}
 </div>
-<h1></h1>
-<hr/>
+<div class="well well-lg">
+<p> <strong> Question: </strong>{{ title }} </p>
+<p><strong>Author:</strong> {{ instance.user }}</p>
+<p><strong>Description: </strong>{{ instance.content | linebreaks }}</p>
 <br/>
-<div class='row'>
-<div class = 'col-sm-12'>
+<p align="right">{{ instance.timestamp }}</p>
+</div>
+</div>
 
-{{ instance.content | linebreaks }}<br/>
 
-<hr/>
-<br/>
+<div class="col-sm-5">
 <div>
 	<p class = 'lead'>Comments</p>
 	<form method = "POST" action = "."> {% csrf_token %}
@@ -57,11 +55,7 @@
 	<hr/>
 	{% endfor %}
 </div>
+</div>
 
-<!-- <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div> -->
-
-</div>
-</div>
-</div>
 
 {% endblock content %}

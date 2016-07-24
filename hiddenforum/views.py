@@ -125,11 +125,14 @@ def hiddenpost_create(request, slug):
 		instance.save()
 		#message success
 		messages.success(request, "Successfully Created")
-		return hiddenpost_list(request,slug)
+		return render(request, "hiddenpost_form.html")
 	
+	slugtest = slug
+	slugtest = slugtest.replace("-", " ")
+
 	context = {
 		"form":form,
-		"slugtest":slug,
+		"slugtest":slugtest,
 	}
 	return render(request, "hiddenpost_form.html", context)
 

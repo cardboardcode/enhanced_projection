@@ -1,44 +1,103 @@
 {% extends "base2.html" %}
+{% load staticfiles %}
+{% block style %}
+
+h1{
+     font-family:"Comic Sans MS", cursive, sans-serif;
+}
+#titles{
+     font-family:"Comic Sans MS", cursive, sans-serif;
+}
+{% endblock style %}
+
 {% block content %}
 
-<center><h1>[ {{ slugtest }} ]</h1></center>
+
+<div class="well well-lg"><center><h1>[ {{ slugtest }} ]</h1></center></div>
 
 <p>{{ error }}</p>
-<div>
-<div class = 'col-sm-4 col-sm-offset-2' style="float:left">
+
+<div class="btn-group col-sm-5" >
+
+
+  <div class="panel panel-success">
+      <div class="panel-heading">Add New Collaborators</div>
+      <div class="panel-body">
+          <form action="/posts/{{ justname }}/hiddenforum/add-collaborators/"  method="post">{% csrf_token %}
+            <label for="recipient"></label>
+            <input id="recipient" type="text" name="recipient" value="{{ recipient }}">
+            <input type="submit" value="Add">
+      </div>
+    </div>
+     <div class="panel panel-danger">
+      <div class="panel-heading">Remove Collaborators</div>
+      <div class="panel-body">
+          <form action="/posts/{{ justname }}/hiddenforum/remove-collaborators/"  method="post">{% csrf_token %}
+            <label for="recipient"></label>
+            <input id="recipient" type="text" name="recipient" value="{{ recipient }}">
+            <input type="submit" value="Remove">
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Search</div>
+      <div class="panel-body">
+          <form method = 'GET' action=''>
+            <input type = 'text' name = 'q' placeholder = 'Search posts' value = '{{ request.GET.q }}' />
+            <input type = 'submit' value = 'Search' />
+            </form>
+      </div>
+    </div>
+    <div >
+    <a href='/posts/{{ justname }}/hiddenforum/create' class="btn btn-primary pull-left" role="button">Create</a>
+    </div>
+</div>
+
+
+<!--<div class = 'col-sm-6'>
 <form action="/posts/{{ justname }}/hiddenforum/add-collaborators/"  method="post">{% csrf_token %}
     <label for="recipient">Add new collaborators: </label>
     <input id="recipient" type="text" name="recipient" value="{{ recipient }}">
     <input type="submit" value="Add">
 </form>
 </div>
-<div class = 'col-sm-4 col-sm-offset-2' style="float:left">
+<div class = 'col-sm-6'>
 <form action="/posts/{{ justname }}/hiddenforum/remove-collaborators/"  method="post">{% csrf_token %}
     <label for="recipient">Remove collaborators: </label>
     <input id="recipient" type="text" name="recipient" value="{{ recipient }}">
     <input type="submit" value="Remove">
 </form>
-</div>
+</div>-->
 
-<div>
-<div class="col-md-4" style="float:right">
-<form method = 'GET' action=''>
-<input type = 'text' name = 'q' placeholder = 'Search posts' value = '{{ request.GET.q }}' />
-<input type = 'submit' value = 'Search' />
-</form>
-</div>
-<div class="col-md-4 pull-right">
-<a href='/posts/{{ justname }}/hiddenforum/create' class="btn btn-primary pull-right" role="button">Create</a>
-</div>
-</div>
-</div>
+
+
+
+<div class = "col-sm-7" style="padding: 0 0 0 0">
 
 {% for post in posts %}
-<div class="row">
-    <div class="col-sm-8 col-sm-offset-2 " style="padding-left:0px float:left">
+<div class="row panel panel-success">
+    <div class = "panel-heading">
+    <p id="titles">
+    Question: <a href='/posts/{{ justname }}/hiddenforum/{{post.slug}}'> {{ post.title }}</a> </p> 
+
+    <p align="right"> By: {{ post.user }}</p>
+    </div>
+    <div class="panel-body" style="padding: 0 0 0 0">
+    <p class="pull-right"><small>{{ post.timestamp }} </small><a href='/posts/{{ justname }}/hiddenforum/{{post.slug}}' class="btn btn-primary" role="button">View</a> </p>
+    </div>
+</div>
+{% endfor %}
+<!--<div class="row">
+    <div class="row">
         <div class="thumbnail" style="padding: 0 0 0 0">
-        <div class="panel panel-default pull-left">
-            <div class = "panel-heading"><h3><a href='/posts/{{ justname }}/hiddenforum/{{post.slug}}'>{{ post.title }}</a> <small>{{ post.timestamp }} </small> </h3> </div>
+        <div class="panel panel-success">
+            <div class = "panel-heading">
+            <div class="col-sm-10">
+            <strong>Question:</strong><p> <a href='/posts/{{ justname }}/hiddenforum/{{post.slug}}'>{{ post.title }}</a>  </p>
+            </div>
+            <div class="col-sm-2">
+            <p style="align-content:right"> By: {{ post.user }}</p> 
+            </div>
+            </div>
 
             {% if post.image %}
             <img style = "vertical-align; height:350px; width:350px" src='{{ post.image.url }}' align ='right' class='img-responsive' />
@@ -55,13 +114,9 @@
             {% endif %}
             <table class = "table">
                 <tr>
-                    <td class = "field-label col-xs-3 active">
-                        <label> Author </label>
-                    </td>
-                    <td class ="col-md-9">
-                     {{ post.user }}
-                    </td>
+                    
                     <td>
+                    <small>{{ post.timestamp }} </small>
                     <p><a href='/posts/{{ justname }}/hiddenforum/{{post.slug}}' class="btn btn-primary" role="button">View</a> </p>
                     </td>
                 </tr>
@@ -70,7 +125,7 @@
         </div>
     </div>
 </div>
-{% endfor %}
+
 
 <div class="pagination">
     <span class="step-links">
@@ -86,26 +141,8 @@
             <a href="?{{page_request_var}}={{ object_list.next_page_number }}&q={{ request.GET.q }}">next</a>
         {% endif %}
     </span>
+</div>-->
+
 </div>
-</div>
 
-
-
-
-    <!-- <div>
-    {% if category %}
-        {% if posts %}
-            <u1>
-            {% for post in posts %}
-                <li><a href = "{{ post.get_absolute_url }}">{{ post.title }}</a></li>
-            {% endfor %}
-        </u1>
-        {% else %}
-            <strong> No pages currently in category </strong>
-        {% endif %}
-    {% else %}
-        The specified category does not exist!
-    {% endif %}
-    </div>
-</body> -->
 {% endblock content %}
