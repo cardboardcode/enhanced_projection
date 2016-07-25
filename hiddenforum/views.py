@@ -46,6 +46,9 @@ def kickstarter_integrate(request,slug):
 @login_required
 def add_collaborators(request,slug,form_class=NameForm, recipient_filter=None):
 	# if this is a POST request we need to process the form data
+
+	print ("entered into add_collaborators def")
+
 	if request.method == 'POST':
 		# create a form instance and populate it with data from the request:
 		form = form_class(request.POST)
@@ -88,6 +91,8 @@ def add_collaborators(request,slug,form_class=NameForm, recipient_filter=None):
 @login_required
 def remove_collaborators(request,slug,form_class=NameForm, recipient_filter=None):
 	# if this is a POST request we need to process the form data
+	print ("entered into remove_collaborators def")
+
 	if request.method == 'POST':
 		# create a form instance and populate it with data from the request:
 		form = form_class(request.POST)

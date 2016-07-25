@@ -26,27 +26,31 @@ h1{
 
 <p>{{ error }}</p>
 
+
 <div class="btn-group col-sm-5" >
-
-
-  <div class="panel panel-success">
+<div class="panel panel-success">
       <div class="panel-heading">Add New Collaborators</div>
       <div class="panel-body">
           <form action="/posts/{{ justname }}/hiddenforum/add-collaborators/"  method="post">{% csrf_token %}
             <label for="recipient"></label>
-            <input id="recipient" type="text" name="recipient" value="{{ recipient }}">
-            <input type="submit" value="Add">
+            <input id="recipient" type="text" name="recipient" value="{{ recipient }}"> </input>
+            <input type="submit" value="Add"></input>
+        </form>
       </div>
-    </div>
+</div>
+
+  
      <div class="panel panel-danger">
       <div class="panel-heading">Remove Collaborators</div>
       <div class="panel-body">
           <form action="/posts/{{ justname }}/hiddenforum/remove-collaborators/"  method="post">{% csrf_token %}
             <label for="recipient"></label>
-            <input id="recipient" type="text" name="recipient" value="{{ recipient }}">
-            <input type="submit" value="Remove">
+            <input id="recipient" type="text" name="recipient" value="{{ recipient }}"></input>
+            <input type="submit" value="Remove"></input>
+            </form>
       </div>
     </div>
+
    <!--<div class="panel panel-default">
       <div class="panel-heading">Search</div>
       <div class="panel-body">
