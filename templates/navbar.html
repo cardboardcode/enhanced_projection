@@ -16,16 +16,32 @@
           
         </div>
         <div id="navbar" class="navbar-collapse collapse" style="line-height: 9.5;">
-          <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/projection_logo.png' %}" height=104px; width=168px;/></a>
+          <a class="navbar-brand" href="{% url 'home' %}">
+          <img src="{% static 'img/projection_logo.png' %}" height=104px; width=168px;/></a>
+
+
           <ul class="nav navbar-nav">
-            <li><a href="{% url 'home' %}"><br/><br/>Home</a></li>
-            <li><a href="{% url 'about' %}"><br/><br/>About</a></li>
-            <li><a href="{% url 'contact' %}"><br/><br/>Contact</a></li>
-            <li >
+            
+          <li>
+            <a href="/about/" onmouseover="document.getElementById('myimage3').src='{% static 'img/onabout.png'%}';"onmouseout="document.getElementById('myimage3').src='{% static 'img/about.png'%}';"> 
+            <img src="{% static 'img/about.png'%}" height=55px id="myimage3" />
+             </a>
+            </li>
+
+
+            <li>
+            <a href="/contact/" onmouseover="document.getElementById('myimage2').src='{% static 'img/oncall.png'%}';"
+            onmouseout="document.getElementById('myimage2').src='{% static 'img/call.png'%}';"> 
+            <img src="{% static 'img/call.png'%}" id="myimage2" /> </a>  
+            </li>
+
+
+
+            <li>
             <a href="/messages/" onmouseover="document.getElementById('myimage1').src='{% static 'img/mailopen.png'%}';"
             onmouseout="document.getElementById('myimage1').src='{% static 'img/mailclose.png'%}';">    
             <img src="{% static 'img/mailclose.png'%}" id="myimage1" /></a></li>
-
+            </li>
             
             
             <!-- <li class="dropdown">
@@ -45,7 +61,7 @@
 
           <ul class="nav navbar-nav navbar-right">
           {% if request.user.is_authenticated %}
-            <li><a href="{% url 'auth_logout' %}"><br/><br/>Logout</a></li>
+            <li><a href="{% url 'auth_logout' %}"><br/><br/><img src="{% static 'img/logout.png' %}"></a></li>
             {% else %}
             
             <li><a href="{% url 'registration_register' %}">Register</a></li>

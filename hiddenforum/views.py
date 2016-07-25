@@ -253,8 +253,10 @@ def display_hidden(request,slug):
 	l = request.user.groups.values_list('name',flat=True)
 	print l
 
+
+
 	if user.groups.filter(name=slugtest).exists():
-		is_in_group = True
+		return False
 	else:
 		print ("slugtest is false")
 		context = {
@@ -264,12 +266,7 @@ def display_hidden(request,slug):
 		}
 		return True
 
-	context = {
-	"justname": slug,
-	"slugtest": slugtest,
-	}
-	print("still came here?")
-	return render(request, 'hiddenpost_list.html', context)
+	
 
 
 @login_required
@@ -322,9 +319,16 @@ def hiddenpost_detail(request, slug):
 		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 	comments = instance.comments
-	
+	print ("----------------------------error ")
+	print instance.hiddenforum
+
 	slugtest = slug
+	justname = instance.hiddenforum
+	justname = justname.replace(" ", "-")
+	print ("----------------------------error")
+	print justname
 	context = {
+	"justname": justname,
 	"slugtest": slugtest,
 	"title": instance.title,
 	"instance": instance,
@@ -332,6 +336,6 @@ def hiddenpost_detail(request, slug):
 	"comments": comments,
 	"comment_form": form
 	}
-
+	
 
 	return render(request, "hiddenpost_detail.html",context)

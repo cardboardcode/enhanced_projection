@@ -1,10 +1,28 @@
 {% extends "base2.html" %}
 {% load urlify %}
 {% load crispy_forms_tags %}
+
+{% block style %}
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+{% endblock style%}
+
+
 {% block head_title %} 
 {{ instance.title }} | {{ block.super }} 
 {% endblock head_title %}
 {% load staticfiles %}
+
+
+
+
 {% block content %}
 
 
@@ -15,9 +33,28 @@
 {% endif %}
 </div>
 <div class="well well-lg">
-<p><img src="{% static 'img/hiddenforum/originator.png'%}" height=30px;/ style="margin-right:30px"> {{ title }} </p>
-<p>{{ instance.user }}</p>
-<p><center><strong>:<img src="{% static 'img/hiddenforum/content.png'%}" height=30px;/>:</strong></center>{{ instance.content | linebreaks }}</p>
+
+<!--<img src="{% static 'img/hiddenforum/originator.png'%}" height=30px;/ style="padding-left:25px; margin-right:30px">--> 
+<div class="well well-lg" >
+
+	<figure>
+	<center>
+    <img src='{% static 'img/hiddenforum/user.png'%}' style="padding-left:5px" height="64px" />
+    <figcaption>[ {{ instance.user }} ]</figcaption>
+    </center>
+    <center><h3><strong>{{ title }}</strong></h3></center>
+    </figure>
+    
+    
+    
+</div>
+<p><center><strong>:<img src="{% static 'img/hiddenforum/content.png'%}" height=30px;/>:</strong></center><hr>
+</p>
+<center>
+<p>
+{{ instance.content | linebreaks }}
+</p>
+</center>
 <br/>
 <p align="right">{{ instance.timestamp }}</p>
 </div>
@@ -30,6 +67,8 @@
 	<form method = "POST" action = "."> {% csrf_token %}
 		{{ comment_form | crispy }}
 		<input type = 'submit' value = 'Post comment' class = 'btn btn-default'>
+		<a href='/posts/{{ justname }}/hiddenforum/' type="button" class="btn btn-warning" style="margin-left:30px pull-right">Return To Forum
+    </a>
 	</form>
 	<hr/>
 <div><center><img src="{% static 'img/hiddenforum/thread.png'%}" height=30px;/></center></div>
