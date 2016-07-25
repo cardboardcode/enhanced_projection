@@ -82,18 +82,20 @@ def add_collaborators(request,slug,form_class=NameForm, recipient_filter=None):
 			"justname": slug,
 			"slugtest": slugtest,
 			}
-			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+			return render(request, 'hiddenpost_list.html',context2)
 
 	# if a GET (or any other method) we'll create a blank form
 		else:
 			error = str(form.errors)
+			# print ("remove error --------------------------------------------")
+			# print error
 			form = NameForm()
 			context = {
 				"justname": slug,
 				"slugtest": slugtest,
-				"error": error,
+				"adderror": error,
 			}
-		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+		return render(request, 'hiddenpost_list.html',context)
 # @user_passes_test(is_in_group)
 
 @login_required
@@ -110,7 +112,7 @@ def remove_collaborators(request,slug,form_class=NameForm, recipient_filter=None
 		
 		# phrase = "pass the first if----------------------------"
 		# print phrase
-		print form.errors
+		
 		if form.is_valid():
 			# g = Group.objects.get(name=slugtest) 
 			# g.user_set.add()
@@ -126,18 +128,20 @@ def remove_collaborators(request,slug,form_class=NameForm, recipient_filter=None
 			"justname": slug,
 			"slugtest": slugtest,
 			}
-			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+			return render(request, 'hiddenpost_list.html',context2)
 
 	# if a GET (or any other method) we'll create a blank form
 		else:
 			error = str(form.errors)
+			# print ("remove error --------------------------------------------")
+			# print error
 			form = NameForm()
 			context = {
 				"justname": slug,
 				"slugtest": slugtest,
-				"error": error,
+				"removeerror": error,
 			}
-		return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+		return render(request, 'hiddenpost_list.html',context)
 
 @login_required
 def hiddenpost_create(request, slug):
