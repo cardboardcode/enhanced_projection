@@ -107,8 +107,8 @@ h1{
             {% endif %}
     </div>
     <div class = "panel-heading">
-    <p id="titles">
-    Question: <a href='/posts/{{ justname }}/hiddenforum/{{post.slug}}'> {{ post.title }}</a> </p> 
+    <p id="titles"><img src="{% static 'img/hiddenforum/originator.png'%}" height=30px;/>
+       <a href='/posts/{{ justname }}/hiddenforum/{{post.slug}}'> {{ post.title }}</a> </p> 
 
     <p align="right"> By: {{ post.user }}</p>
     </div>

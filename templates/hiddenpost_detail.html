@@ -4,7 +4,7 @@
 {% block head_title %} 
 {{ instance.title }} | {{ block.super }} 
 {% endblock head_title %}
-
+{% load staticfiles %}
 {% block content %}
 
 
@@ -15,9 +15,9 @@
 {% endif %}
 </div>
 <div class="well well-lg">
-<p> <strong> Question: </strong>{{ title }} </p>
-<p><strong>Author:</strong> {{ instance.user }}</p>
-<p><strong>Description: </strong>{{ instance.content | linebreaks }}</p>
+<p><img src="{% static 'img/hiddenforum/originator.png'%}" height=30px;/ style="margin-right:30px"> {{ title }} </p>
+<p>{{ instance.user }}</p>
+<p><center><strong>:<img src="{% static 'img/hiddenforum/content.png'%}" height=30px;/>:</strong></center>{{ instance.content | linebreaks }}</p>
 <br/>
 <p align="right">{{ instance.timestamp }}</p>
 </div>
@@ -32,6 +32,7 @@
 		<input type = 'submit' value = 'Post comment' class = 'btn btn-default'>
 	</form>
 	<hr/>
+<div><center><img src="{% static 'img/hiddenforum/thread.png'%}" height=30px;/></center></div>
 	{% for comment in comments %}
 
 	<blockquote>
