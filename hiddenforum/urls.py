@@ -13,12 +13,12 @@ from .views import (
 	)
 
 urlpatterns = [
-
+	url(r'^integrate/$',kickstarter_integrate),
 	url(r'^$', hiddenpost_list, name = 'display_hidden'),
 	url(r'^create/$', hiddenpost_create),
 	url(r'^add-collaborators/$',add_collaborators, name='add-collaborators'),
 	url(r'^remove-collaborators/$',remove_collaborators, name='remove-collaborators'),
 	url(r'^(?P<slug>[\w-]+)/$', hiddenpost_detail, name='detail'),
-	url(r'^integrate/$',kickstarter_integrate),
+	
 	
 ]

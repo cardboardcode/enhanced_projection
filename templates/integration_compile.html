@@ -40,7 +40,45 @@
         <div class="cover-container">
 
           <div class="inner cover">
-            <h1>What's up?</h1>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Project Title:</td>
+                  <td>{{ title }}</td>
+                </tr>
+                <tr>
+                  <td>Subcategory:</td>
+                  <td>{{ subcategory }}</td>
+                </tr>
+                <tr>
+                  <td>Description:</td>
+                  <td>{{ description }}</td>
+                </tr>
+            </table>
+            <h3>List of Collaborators:</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th><center>Name</center></th>
+                  <th><center>Email Address</center></th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for user in userlist %}
+                <tr>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.email }}</td>
+                </tr>
+              {% endfor %}
+                
+            </table>
+              
           </div>
 
         </div>
@@ -59,3 +97,9 @@
     <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
+<!--
+'title': instance.title,
+  'subcategory': instance.category,
+  'description': instance.content,
+  'userlist':user_list,
+  -->

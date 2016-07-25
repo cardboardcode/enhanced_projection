@@ -8,7 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
 
-from django_messages.models import Message
+from projection_messages.models import Message
 from django.utils.translation import ugettext as _
 
 from comments.forms import CommentForm
@@ -20,7 +20,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import NameForm
 from django.contrib.auth.models import User ,Group
 # Create your views here.
-
+from .models import UserData
 
 @login_required
 def kickstarter_integrate(request,slug):
@@ -32,13 +32,21 @@ def kickstarter_integrate(request,slug):
 	slugtest = slugtest.replace("-", " ")
 	g = Group.objects.get(name=slugtest)
 	users = g.user_set.all()
-	print users
+	
+	user_list =[]
+	
+	for user in users:
+		temp = UserData()
+		temp.name = user.username
+		temp.email =  user.email
+		user_list.append(temp)
 
+	print user_list 
 	context={
 	'title': instance.title,
 	'subcategory': instance.category,
 	'description': instance.content,
-
+	'userlist':user_list,
     }
 
 	return render(request,'integration_compile.html',context)
@@ -169,11 +177,22 @@ def hiddenpost_list(request,slug):
 
 	slugtest = slug
 	slugtest = slugtest.replace("-", " ")
-	is_in_group = False
+	not_in_group = False
 	user = request.user
 
 	print slugtest
-	is_in_group = display_hidden(request,slug)
+	not_in_group = display_hidden(request,slug)
+	print ("return back to the hiddenpost_list def")
+
+	if (not_in_group==True):
+		print ("not__in_group is True")
+		print ("slugtest back in hiddenpost_list is false")
+		context = {
+		"justname": slug,
+		"slugtest": slugtest,
+		"username": request.user
+		}
+		return render(request,'hiddenforum_denied.html',context) 
 
 	try:
 		hiddenforum = HiddenForum.objects.get(name=slugtest)
@@ -221,9 +240,9 @@ def display_hidden(request,slug):
 	is_in_group = False
 	user = request.user
 
-	# print ("in display_hidden function")
-	# l = request.user.groups.values_list('name',flat=True)
-	# print l
+	print ("in display_hidden function")
+	l = request.user.groups.values_list('name',flat=True)
+	print l
 
 	if user.groups.filter(name=slugtest).exists():
 		is_in_group = True
@@ -234,12 +253,13 @@ def display_hidden(request,slug):
 		"slugtest": slugtest,
 		"username": request.user
 		}
-		return render(request,'hiddenforum_denied.html',context)	
+		return True
 
 	context = {
 	"justname": slug,
 	"slugtest": slugtest,
 	}
+	print("still came here?")
 	return render(request, 'hiddenpost_list.html', context)
 
 

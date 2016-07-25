@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'registration',
     'pagedown',
-    'django_messages',
     'notification',
     #my own apps
     'comments',
@@ -64,6 +63,7 @@ INSTALLED_APPS = [
     'closedprojects',
     'involvedprojects',
     'hiddenforum',
+    'projection_messages',
     
 ]
 
@@ -91,7 +91,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django_messages.context_processors.inbox',
+                'projection.context_processors.inbox',
             ],
         },
     },
