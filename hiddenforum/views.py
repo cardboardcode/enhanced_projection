@@ -13,6 +13,7 @@ from django.utils.translation import ugettext as _
 
 from comments.forms import CommentForm
 from comments.models import Comment
+from openedprojects.models import Post
 from .forms import HiddenPostForm
 from .models import HiddenPost , HiddenForum
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -21,6 +22,26 @@ from django.contrib.auth.models import User ,Group
 # Create your views here.
 
 
+@login_required
+def kickstarter_integrate(request,slug):
+
+	print ("entered into kickstarter_integrate def")
+
+	instance = get_object_or_404(Post, slug=slug)
+	slugtest = slug
+	slugtest = slugtest.replace("-", " ")
+	g = Group.objects.get(name=slugtest)
+	users = g.user_set.all()
+	print users
+
+	context={
+	'title': instance.title,
+	'subcategory': instance.category,
+	'description': instance.content,
+
+    }
+
+	return render(request,'integration_compile.html',context)
 
 @login_required
 def add_collaborators(request,slug,form_class=NameForm, recipient_filter=None):
@@ -125,7 +146,7 @@ def hiddenpost_create(request, slug):
 		instance.save()
 		#message success
 		messages.success(request, "Successfully Created")
-		return render(request, "hiddenpost_form.html")
+		return render(request, "hiddenpost_list.html")
 	
 	slugtest = slug
 	slugtest = slugtest.replace("-", " ")
@@ -138,7 +159,7 @@ def hiddenpost_create(request, slug):
 
 
 @login_required
-def hiddenpost_list(request,slug,**kwargs):
+def hiddenpost_list(request,slug):
 	context_dict = {}
 
 	slugtest = slug
@@ -148,22 +169,12 @@ def hiddenpost_list(request,slug,**kwargs):
 
 	print slugtest
 	is_in_group = display_hidden(request,slug)
-	# if user.groups.filter(name=slugtest).exists():
-	# 	print ("slugtest is true")
-	# 	is_in_group = True
-	# else:
-	# 	print ("slugtest is false")
-	# 	context = {
-	# 	"justname": slug,
-	# 	"slugtest": slugtest,
-	# 	"username": request.user
-	# 	}
-	# 	return render(request,'hiddenforum_denied.html',context)	
 
 	try:
 		hiddenforum = HiddenForum.objects.get(name=slugtest)
 		posts = HiddenPost.objects.filter(hiddenforum=hiddenforum)
 		query = request.GET.get("q")
+
 		if query:
 			posts = posts.filter(
 				Q(title__icontains=query) |
@@ -195,8 +206,6 @@ def hiddenpost_list(request,slug,**kwargs):
 	context_dict['slugtest'] = slugtest
 	return render(request, 'hiddenpost_list.html', context_dict)
 
-# def slugData():
-# 	return slug_data
 
 @login_required
 # @user_passes_test(is_in_group, login_url=)

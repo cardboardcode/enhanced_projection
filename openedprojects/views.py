@@ -101,39 +101,39 @@ def post_detail(request, slug=None):
 	}
 	return render(request, "post_detail.html", context)
 	
-@login_required
-def post_list(request, category_name_slug):
+# @login_required
+# def post_list(request, category_name_slug):
 	
-	phrase = category_name_slug
-	print phrase
-	print type(category_name_slug)
-	category = Category.objects.get(slug = category_name_slug)
-	queryset_list = Post.objects.filter(category = category)#.order_by("-timestamp")
-	query = request.GET.get("q")
-	if query:
-		queryset_list = queryset_list.filter(
-			Q(title__icontains=query) |
-			Q(content__icontains=query) |
-			Q(user__username__icontains=query)
-			).distinct()
-	paginator = Paginator(queryset_list, 10) # Show 25 contacts per page
-	page_request_var = "page"
-	page = request.GET.get('page')
-	try:
-		queryset = paginator.page(page)
-	except PageNotAnInteger:
-		# If page is not an integer, deliver first page.
-		queryset = paginator.page(1)
-	except EmptyPage:
-		# If page is out of range (e.g. 9999), deliver last page of results.
-		queryset = paginator.page(paginator.num_pages)
+# 	phrase = category_name_slug
+# 	print phrase
+# 	print type(category_name_slug)
+# 	category = Category.objects.get(slug = category_name_slug)
+# 	queryset_list = Post.objects.filter(category = category)#.order_by("-timestamp")
+# 	query = request.GET.get("q")
+# 	if query:
+# 		queryset_list = queryset_list.filter(
+# 			Q(title__icontains=query) |
+# 			Q(content__icontains=query) |
+# 			Q(user__username__icontains=query)
+# 			).distinct()
+# 	paginator = Paginator(queryset_list, 10) # Show 25 contacts per page
+# 	page_request_var = "page"
+# 	page = request.GET.get('page')
+# 	try:
+# 		queryset = paginator.page(page)
+# 	except PageNotAnInteger:
+# 		# If page is not an integer, deliver first page.
+# 		queryset = paginator.page(1)
+# 	except EmptyPage:
+# 		# If page is out of range (e.g. 9999), deliver last page of results.
+# 		queryset = paginator.page(paginator.num_pages)
 
-	context ={
-		"object_list": queryset,
-		"title": category,
-		"page_request_var": page_request_var
-	}
-	return render(request, "post_list.html", context)
+# 	context ={
+# 		"object_list": queryset,
+# 		"title": category,
+# 		"page_request_var": page_request_var
+# 	}
+# 	return render(request, "post_list.html", context)
 
 @login_required
 def post_update(request, slug=None):
@@ -181,6 +181,8 @@ def show_category(request, category_name_slug):
 		category = Category.objects.get(slug=category_name_slug)
 		posts = Post.objects.filter(category=category)
 		query = request.GET.get("q")
+
+
 		if query:
 			posts = posts.filter(
 				Q(title__icontains=query) |
